@@ -18,6 +18,17 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+
+    void on_actionDark_Theme_triggered();
+
+    void on_actionWhite_Theme_triggered();
+
+    void on_actionRed_Theme_triggered();
+
+    void on_actionGreen_Theme_triggered();
+
+    void on_actionBlue_Theme_triggered();
+
 private:
     Ui::MainWindow *ui;
 };
