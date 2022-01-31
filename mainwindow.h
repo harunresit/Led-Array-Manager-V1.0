@@ -18,7 +18,6 @@ public:
 private slots:
     void on_pushButton_clicked();
 
-
     void on_actionDark_Theme_triggered();
 
     void on_actionWhite_Theme_triggered();
@@ -31,5 +30,10 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+    static QPixmap drawPattern(int type, int step, const QColor &color);
+    static void drawSquare(QPainter *painter, int width, const QColor &color);
+    static void drawCross(QPainter *painter, int width, const QColor &color);
+    static void drawFancy(QPainter *painter, int width, const QColor &color);
 };
 #endif // MAINWINDOW_H
