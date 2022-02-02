@@ -27,14 +27,21 @@
      <item>
       <widget class="QPushButton" name="pushButton">
        <property name="text">
-        <string>Print Date</string>
+        <string>Fancy</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_2">
        <property name="text">
-        <string>Button</string>
+        <string>Cross</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_3">
+       <property name="text">
+        <string>Square</string>
        </property>
       </widget>
      </item>
@@ -44,10 +51,23 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>50</y>
+      <y>60</y>
       <width>781</width>
-      <height>501</height>
+      <height>491</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>111</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Drawing Sketch</string>
     </property>
    </widget>
   </widget>
@@ -79,9 +99,9 @@
      </property>
      <addaction name="actionDark_Theme"/>
      <addaction name="actionWhite_Theme"/>
-     <addaction name="actionRed_Theme"/>
      <addaction name="actionGreen_Theme"/>
      <addaction name="actionBlue_Theme"/>
+     <addaction name="actionYellow_Theme"/>
     </widget>
     <addaction name="menuAppearance"/>
    </widget>
@@ -119,11 +139,6 @@
     <string>White Theme</string>
    </property>
   </action>
-  <action name="actionRed_Theme">
-   <property name="text">
-    <string>Red Theme</string>
-   </property>
-  </action>
   <action name="actionGreen_Theme">
    <property name="text">
     <string>Green Theme</string>
@@ -132,6 +147,11 @@
   <action name="actionBlue_Theme">
    <property name="text">
     <string>Blue Theme</string>
+   </property>
+  </action>
+  <action name="actionYellow_Theme">
+   <property name="text">
+    <string>Yellow Theme</string>
    </property>
   </action>
  </widget>

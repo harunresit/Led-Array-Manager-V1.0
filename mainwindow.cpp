@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 
 #include <QDebug>
-#include <QDate>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -13,8 +12,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->pushButton->setStyleSheet("background-color: red;");
     ui->pushButton_2->setStyleSheet("background-color: green;");
 
-    ui->sketchgraphicsView->setBackgroundBrush(MainWindow::drawPattern(2, 10, QColor(255,15,15,255)));
-    //ui->sketchgraphicsView->setCacheMode(QGraphicsView::CacheBackground);
+    QGraphicsScene *scene = new QGraphicsScene(this);
+    ui->sketchgraphicsView->setScene(scene);
+    ui->sketchgraphicsView->setBackgroundBrush(QBrush(MainWindow::drawPattern(sketchStyle, sketchGridSize, QColor(216,15,15))));
 
 
 }
@@ -84,8 +84,8 @@ QPixmap MainWindow::drawPattern(int type, int step, const QColor &color)
 
 void MainWindow::on_pushButton_clicked()
 {
-     qDebug() << "Date:" << QDate::currentDate();
-
+    sketchStyle = 1;
+    ui->sketchgraphicsView->setBackgroundBrush(QBrush(MainWindow::drawPattern(sketchStyle, sketchGridSize, QColor(216,15,15))));
 }
 
 void MainWindow::on_actionDark_Theme_triggered()
@@ -99,21 +99,53 @@ void MainWindow::on_actionWhite_Theme_triggered()
     ui->sketchgraphicsView->setStyleSheet("background-color: white;");
 }
 
-
-void MainWindow::on_actionRed_Theme_triggered()
-{
-    ui->sketchgraphicsView->setStyleSheet("background-color: red;");
-}
-
-
 void MainWindow::on_actionGreen_Theme_triggered()
 {
-    ui->sketchgraphicsView->setStyleSheet("background-color: green;");
+    ui->sketchgraphicsView->setStyleSheet("background-color: #CEFF33;");
 }
 
 
 void MainWindow::on_actionBlue_Theme_triggered()
 {
-    ui->sketchgraphicsView->setStyleSheet("background-color: blue;");
+    ui->sketchgraphicsView->setStyleSheet("background-color: #33FFF6;");
+}
+
+void MainWindow::wheelEvent(QWheelEvent *event)
+{
+    QPoint numDegrees = event->angleDelta() / 120;
+
+    if (numDegrees.y() == 1){
+        sketchGridSize++;
+    }else if (numDegrees.y() == -1){
+        sketchGridSize--;
+    }
+
+    if (sketchGridSize <= 10){
+        sketchGridSize = 10;
+    }else if (sketchGridSize >= 100){
+        sketchGridSize = 100;
+    }
+
+    ui->sketchgraphicsView->setBackgroundBrush(QBrush(MainWindow::drawPattern(sketchStyle, sketchGridSize, QColor(216,15,15))));
+    event->accept();
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    sketchStyle = 0;
+    ui->sketchgraphicsView->setBackgroundBrush(QBrush(MainWindow::drawPattern(sketchStyle, sketchGridSize, QColor(216,15,15))));
+}
+
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    sketchStyle = 2;
+    ui->sketchgraphicsView->setBackgroundBrush(QBrush(MainWindow::drawPattern(sketchStyle, sketchGridSize, QColor(216,15,15))));
+}
+
+
+void MainWindow::on_actionYellow_Theme_triggered()
+{
+    ui->sketchgraphicsView->setStyleSheet("background-color: #E6FF33;");
 }
 

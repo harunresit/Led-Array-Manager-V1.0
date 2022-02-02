@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QWheelEvent>
+#include <QPoint>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -14,6 +16,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    int sketchGridSize = 10;
+    int sketchStyle = 1;
 
 private slots:
     void on_pushButton_clicked();
@@ -22,11 +26,17 @@ private slots:
 
     void on_actionWhite_Theme_triggered();
 
-    void on_actionRed_Theme_triggered();
-
     void on_actionGreen_Theme_triggered();
 
     void on_actionBlue_Theme_triggered();
+
+    void wheelEvent(QWheelEvent *event);
+
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked();
+
+    void on_actionYellow_Theme_triggered();
 
 private:
     Ui::MainWindow *ui;
