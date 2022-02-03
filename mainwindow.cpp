@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->sketchgraphicsView->setScene(scene);
     ui->sketchgraphicsView->setBackgroundBrush(QBrush(MainWindow::drawPattern(sketchStyle, sketchGridSize, QColor(216,15,15))));
 
-
 }
 
 MainWindow::~MainWindow()
