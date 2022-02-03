@@ -148,3 +148,21 @@ void MainWindow::on_actionYellow_Theme_triggered()
     ui->sketchgraphicsView->setStyleSheet("background-color: #E6FF33;");
 }
 
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    cursorStatus = LED;
+}
+
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    cursorStatus = CURSOR;
+}
+
+
+void MainWindow::on_pushButton_6_clicked()
+{
+    cursorStatus = ERASER;
+}
+
