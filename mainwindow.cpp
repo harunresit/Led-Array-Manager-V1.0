@@ -1,7 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "newsketch_screen.h"
 
 #include <QDebug>
+
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -15,13 +17,17 @@ MainWindow::MainWindow(QWidget *parent)
     QGraphicsScene *scene = new QGraphicsScene(this);
     ui->sketchgraphicsView->setScene(scene);
     ui->sketchgraphicsView->setBackgroundBrush(QBrush(MainWindow::drawPattern(sketchStyle, sketchGridSize, QColor(216,15,15))));
-
 }
 
 MainWindow::~MainWindow()
 {
     qDebug() << "Are you sure you wanna quit?" << endl;
     delete ui;
+}
+
+void MainWindow::setParameters(QListWidgetItem ctrTypeName, int lghtNumber){
+    main_controllertypeitem = ctrTypeName;
+    main_lightnumber = lghtNumber;
 }
 
 void MainWindow::drawSquare(QPainter *painter, int width, const QColor &color)
@@ -133,6 +139,7 @@ void MainWindow::on_pushButton_2_clicked()
 {
     sketchStyle = 0;
     ui->sketchgraphicsView->setBackgroundBrush(QBrush(MainWindow::drawPattern(sketchStyle, sketchGridSize, QColor(216,15,15))));
+
 }
 
 
@@ -164,5 +171,12 @@ void MainWindow::on_pushButton_4_clicked()
 void MainWindow::on_pushButton_6_clicked()
 {
     cursorStatus = ERASER;
+}
+
+
+void MainWindow::on_actionNew_triggered()
+{
+    newsketch_screen().setModal(true);
+    newsketch_screen().exec();
 }
 

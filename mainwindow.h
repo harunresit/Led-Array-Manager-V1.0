@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QWheelEvent>
 #include <QPoint>
+#include <QListWidgetItem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,6 +20,7 @@ public:
     int sketchGridSize = 10;                            //default
     int sketchStyle = 1;                                //default
 
+    void setParameters(QListWidgetItem ctrTypeName, int lghtNumber);
     enum CursorStatus{
         LED,
         CURSOR,
@@ -50,8 +52,13 @@ private slots:
 
     void on_pushButton_6_clicked();
 
+    void on_actionNew_triggered();
+
 private:
     Ui::MainWindow *ui;
+
+    QListWidgetItem main_controllertypeitem;
+    int main_lightnumber = 0;
 
     CursorStatus cursorStatus = CURSOR;                                     //default
     static QPixmap drawPattern(int type, int step, const QColor &color);
