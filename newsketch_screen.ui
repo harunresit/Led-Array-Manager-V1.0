@@ -225,16 +225,6 @@
      <string>Path of the sketch file :</string>
     </property>
    </widget>
-   <widget class="QPlainTextEdit" name="sketchPathInput">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>170</y>
-      <width>341</width>
-      <height>21</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="broweButtonSketchPath">
     <property name="geometry">
      <rect>
@@ -274,14 +264,37 @@
      <string>Browse</string>
     </property>
    </widget>
-   <widget class="QPlainTextEdit" name="bytePathInput">
+   <widget class="QLineEdit" name="sketchPathInput">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>170</y>
+      <width>331</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="bytePathInput">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>220</y>
-      <width>341</width>
-      <height>21</height>
+      <width>331</width>
+      <height>25</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="openSketchpushButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>270</y>
+      <width>161</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Open Another Project</string>
     </property>
    </widget>
   </widget>

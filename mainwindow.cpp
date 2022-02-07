@@ -3,7 +3,7 @@
 #include "newsketch_screen.h"
 
 #include <QDebug>
-
+#include <QFileDialog>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -25,9 +25,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::setParameters(QListWidgetItem ctrTypeName, int lghtNumber){
+void MainWindow::setParameters(QListWidgetItem ctrTypeName, int lghtNumber, QString sketch_input, QString byte_input){
     main_controllertypeitem = ctrTypeName;
     main_lightnumber = lghtNumber;
+    main_sketchpathinput = sketch_input;
+    main_bytepathinput = byte_input;
 }
 
 void MainWindow::drawSquare(QPainter *painter, int width, const QColor &color)
@@ -158,6 +160,10 @@ void MainWindow::on_actionYellow_Theme_triggered()
 
 void MainWindow::on_pushButton_5_clicked()
 {
+    qDebug() << main_bytepathinput << endl;
+    qDebug() << main_sketchpathinput << endl;
+    qDebug() << main_lightnumber << endl;
+    qDebug() << main_controllertypeitem.text() << endl;
     cursorStatus = LED;
 }
 
@@ -178,5 +184,12 @@ void MainWindow::on_actionNew_triggered()
 {
     newsketch_screen().setModal(true);
     newsketch_screen().exec();
+}
+
+
+void MainWindow::on_actionOpen_triggered()
+{
+    QStringList fileNames = QFileDialog::getOpenFileNames(this, tr("Open File"),"/path/to/file/",tr("Mp3 Files (*.ld)"));
+    //ld.open();
 }
 

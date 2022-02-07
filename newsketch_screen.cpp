@@ -3,6 +3,7 @@
 #include "mainwindow.h"
 #include <QDebug>
 #include <QMessageBox>
+#include <QFileDialog>
 
 newsketch_screen::newsketch_screen(QWidget *parent) :
     QDialog(parent),
@@ -29,13 +30,23 @@ void newsketch_screen::on_buttonBox_accepted()
     }
     if (controllertypeitem.text() == "") {
         qDebug() << "Please select a controller!" << endl;
-        warningmessage = warningmessage + "Please select a controller!";
+        warningmessage = warningmessage + "Please select a controller!\n";
+        passable = 0;
+    }
+    if (sketchpath == "") {
+        qDebug() << "Please select a path for sketch file!" << endl;
+        warningmessage = warningmessage + "Please select a path for sketch file!\n";
+        passable = 0;
+    }
+    if (bytepath == "") {
+        qDebug() << "Please select a path for byte file!" << endl;
+        warningmessage = warningmessage + "Please select a path for byte file!";
         passable = 0;
     }
     if (passable == 1) {
         MainWindow *w = new MainWindow();
         w->setAttribute(Qt::WA_DeleteOnClose);
-        w->setParameters(controllertypeitem, lightnumber);
+        w->setParameters(controllertypeitem, lightnumber, ui->sketchPathInput->text(), ui->bytePathInput->text());
         w->show();
     }else {
         QMessageBox msgbox;
@@ -59,4 +70,25 @@ void newsketch_screen::on_lightNumberlineEdit_textEdited(const QString &arg1)
     lightnumber = arg1.toInt();
 }
 
+
+
+void newsketch_screen::on_broweButtonSketchPath_clicked()
+{
+    sketchpath = QFileDialog::getExistingDirectory(0, ("Select Output Folder"), QDir::currentPath());
+    ui->sketchPathInput->insert(sketchpath);
+}
+
+
+void newsketch_screen::on_browseButtonBytePath_clicked()
+{
+    bytepath = QFileDialog::getExistingDirectory(0, ("Select Output Folder"), QDir::currentPath());
+    ui->bytePathInput->insert(bytepath);
+}
+
+
+void newsketch_screen::on_openSketchpushButton_clicked()
+{
+    QStringList fileNames = QFileDialog::getOpenFileNames(this, tr("Open File"),"/path/to/file/",tr("Mp3 Files (*.ld)"));
+    //ld.open();
+}
 

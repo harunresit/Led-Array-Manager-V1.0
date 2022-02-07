@@ -17,10 +17,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    int sketchGridSize = 10;                            //default
-    int sketchStyle = 1;                                //default
 
-    void setParameters(QListWidgetItem ctrTypeName, int lghtNumber);
+    void setParameters(QListWidgetItem ctrTypeName, int lghtNumber, QString sketch_input, QString byte_input);
     enum CursorStatus{
         LED,
         CURSOR,
@@ -54,13 +52,21 @@ private slots:
 
     void on_actionNew_triggered();
 
+    void on_actionOpen_triggered();
+
 private:
     Ui::MainWindow *ui;
 
     QListWidgetItem main_controllertypeitem;
     int main_lightnumber = 0;
+    QString main_sketchpathinput = "";
+    QString main_bytepathinput = "";
 
     CursorStatus cursorStatus = CURSOR;                                     //default
+
+    int sketchGridSize = 10;                                                //default
+    int sketchStyle = 1;                                                    //default
+
     static QPixmap drawPattern(int type, int step, const QColor &color);
     static void drawSquare(QPainter *painter, int width, const QColor &color);
     static void drawCross(QPainter *painter, int width, const QColor &color);

@@ -24,10 +24,20 @@ private slots:
 
     void on_lightNumberlineEdit_textEdited(const QString &arg1);
 
+    void on_broweButtonSketchPath_clicked();
+
+    void on_browseButtonBytePath_clicked();
+
+    void on_openSketchpushButton_clicked();
+
 private:
     QListWidgetItem controllertypeitem;
 
     int lightnumber = 0;
+
+    QString sketchpath = "";
+
+    QString bytepath = "";
 
     Ui::newsketch_screen *ui;
 };
