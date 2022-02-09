@@ -5,6 +5,7 @@
 #include <QWheelEvent>
 #include <QPoint>
 #include <QListWidgetItem>
+#include <QGraphicsScene>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -38,6 +39,8 @@ private slots:
 
     void wheelEvent(QWheelEvent *event);
 
+    void mousePressEvent(QMouseEvent *event);
+
     void on_pushButton_2_clicked();
 
     void on_pushButton_3_clicked();
@@ -57,19 +60,32 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
+    //Controller type that will be selected from QListWidget will be stored here
     QListWidgetItem main_controllertypeitem;
+
+    //Max led number will be stored here
     int main_lightnumber = 0;
+
+    //Sketch file save path info will be stored here
     QString main_sketchpathinput = "";
+
+    //Byte file save path info will be stored here
     QString main_bytepathinput = "";
 
+    //All led info will be stored here
+    QVector<int> ledlist;
+
+    //Cursor status is Cursor type during draw
     CursorStatus cursorStatus = CURSOR;                                     //default
 
+    //Sketch grid
     int sketchGridSize = 10;                                                //default
+
+    //Sketch style (this may be removed)
     int sketchStyle = 1;                                                    //default
 
-    static QPixmap drawPattern(int type, int step, const QColor &color);
-    static void drawSquare(QPainter *painter, int width, const QColor &color);
-    static void drawCross(QPainter *painter, int width, const QColor &color);
-    static void drawFancy(QPainter *painter, int width, const QColor &color);
+    //QGraphicsScene object for QgraphicsView (this is our sketch screen)
+    QGraphicsScene *scene = new QGraphicsScene(this);
+
 };
 #endif // MAINWINDOW_H

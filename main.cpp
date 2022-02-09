@@ -9,8 +9,8 @@ int main(int argc, char *argv[])
     newsketch_screen initscreen;
     initscreen.show();
 
-    //MainWindow w;
-    //w.show();
+    MainWindow w;
+    w.show();
 
     return a.exec();
 }
