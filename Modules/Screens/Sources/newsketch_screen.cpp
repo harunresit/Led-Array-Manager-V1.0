@@ -1,9 +1,9 @@
-#include "newsketch_screen.h"
-#include "ui_newsketch_screen.h"
-#include "mainwindow.h"
 #include <QDebug>
 #include <QMessageBox>
 #include <QFileDialog>
+#include "Modules/Screens/Headers/newsketch_screen.h"
+#include "ui_newsketch_screen.h"
+#include "Modules/Screens/Headers/mainwindow.h"
 
 newsketch_screen::newsketch_screen(QWidget *parent) :
     QDialog(parent),

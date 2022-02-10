@@ -16,19 +16,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    draw.cpp \
     main.cpp \
-    mainwindow.cpp \
-    newsketch_screen.cpp
+    Modules/Processes/Graphical/Sources/draw.cpp \
+    Modules/Processes/File/Sources/save.cpp \
+    Modules/Screens/Sources/mainwindow.cpp \
+    Modules/Screens/Sources/newsketch_screen.cpp
 
 HEADERS += \
-    draw.h \
-    mainwindow.h \
-    newsketch_screen.h
+    Modules/Processes/File/Headers/config.h \
+    Modules/Processes/Graphical/Headers/draw.h \
+    Modules/Processes/File/Headers/save.h \
+    Modules/Screens/Headers/mainwindow.h \
+    Modules/Screens/Headers/newsketch_screen.h
 
 FORMS += \
-    mainwindow.ui \
-    newsketch_screen.ui
+    Modules/Screens/mainwindow.ui \
+    Modules/Screens/newsketch_screen.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

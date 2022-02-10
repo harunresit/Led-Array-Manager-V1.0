@@ -1,5 +1,5 @@
-#include "mainwindow.h"
-#include "newsketch_screen.h"
+#include "Modules/Screens/Headers/mainwindow.h"
+#include "Modules/Screens/Headers/newsketch_screen.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

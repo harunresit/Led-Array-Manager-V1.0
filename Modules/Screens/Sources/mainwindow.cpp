@@ -1,7 +1,7 @@
-#include "mainwindow.h"
+#include "Modules/Screens/Headers/mainwindow.h"
 #include "ui_mainwindow.h"
-#include "newsketch_screen.h"
-#include "draw.h"
+#include "Modules/Screens/Headers/newsketch_screen.h"
+#include "Modules/Processes/Graphical/Headers/draw.h"
 
 #include <QDebug>
 #include <QFileDialog>
