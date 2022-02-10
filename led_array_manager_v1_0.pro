@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Modules/Processes/Graphical/Sources/led.cpp \
     main.cpp \
     Modules/Processes/Graphical/Sources/draw.cpp \
     Modules/Processes/File/Sources/save.cpp \
@@ -26,6 +27,7 @@ HEADERS += \
     Modules/Processes/File/Headers/config.h \
     Modules/Processes/Graphical/Headers/draw.h \
     Modules/Processes/File/Headers/save.h \
+    Modules/Processes/Graphical/Headers/led.h \
     Modules/Screens/Headers/mainwindow.h \
     Modules/Screens/Headers/newsketch_screen.h
 

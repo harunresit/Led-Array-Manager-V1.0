@@ -5,6 +5,8 @@
 #include <QPainter>
 #include <QDebug>
 
+//This class will be used to draw
+
 class Draw
 {
 public:
