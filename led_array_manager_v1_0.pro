@@ -1,5 +1,9 @@
 QT       += core gui
 
+QT += widgets
+qtHaveModule(printsupport): QT += printsupport
+qtHaveModule(opengl): QT += opengl
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -17,6 +21,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     Modules/Processes/Graphical/Sources/led.cpp \
+    Modules/Processes/Graphical/Sources/view.cpp \
     main.cpp \
     Modules/Processes/Graphical/Sources/draw.cpp \
     Modules/Processes/File/Sources/save.cpp \
@@ -28,6 +33,7 @@ HEADERS += \
     Modules/Processes/Graphical/Headers/draw.h \
     Modules/Processes/File/Headers/save.h \
     Modules/Processes/Graphical/Headers/led.h \
+    Modules/Processes/Graphical/Headers/view.h \
     Modules/Screens/Headers/mainwindow.h \
     Modules/Screens/Headers/newsketch_screen.h
 

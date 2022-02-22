@@ -1,6 +1,7 @@
 #include "Modules/Processes/Graphical/Headers/led.h"
 
 #include <QtWidgets>
+#include <QDebug>
 
 Led::Led(const QColor &color, int x, int y) {
     this->x = x;

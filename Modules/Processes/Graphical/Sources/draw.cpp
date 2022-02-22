@@ -1,4 +1,5 @@
 #include "Modules/Processes/Graphical/Headers/draw.h"
+#include "Modules/Processes/Graphical/Headers/led.h"
 
 Draw::Draw()
 {
@@ -39,12 +40,16 @@ void Draw::drawFancy(QPainter *painter, int width, const QColor &color)
 
 void Draw::drawLed(QGraphicsScene *scene_, QPointF point)
 {
+    /*
     QBrush redBrush(Qt::red);
     QPen blackPen(Qt::black);
     blackPen.setWidth(6);
 
     scene_->addRect(point.x(),point.y(),100,100,blackPen,redBrush);
-    qDebug() << point << endl;
+    qDebug() << point << endl; */
+    QGraphicsItem *item = new Led(QColor(216,15,15),0,1);
+    item->setPos(point);
+    scene_->addItem(item);
 }
 
 QPixmap Draw::drawPattern(int type, int step, const QColor &color)

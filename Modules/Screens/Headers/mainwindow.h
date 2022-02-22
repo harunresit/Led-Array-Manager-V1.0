@@ -1,14 +1,23 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+/*OBJECTS THOSE WAS MADE COMMENT LINE*/
+/*
+QGraphicsScene *scene
+QVector<int> ledlist
+*/
+
 #include <QMainWindow>
-#include <QWheelEvent>
 #include <QPoint>
 #include <QListWidgetItem>
 #include <QGraphicsScene>
+#include <QWheelEvent>
+#include <QSplitter>
+#include "Modules/Processes/Graphical/Headers/view.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
+class QGraphicsScene;
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
@@ -20,45 +29,22 @@ public:
     ~MainWindow();
 
     void setParameters(QListWidgetItem ctrTypeName, int lghtNumber, QString sketch_input, QString byte_input);
+
     enum CursorStatus{
         LED,
         CURSOR,
         ERASER
     };
 
-private slots:
-    void on_pushButton_clicked();
-
-    void on_actionDark_Theme_triggered();
-
-    void on_actionWhite_Theme_triggered();
-
-    void on_actionGreen_Theme_triggered();
-
-    void on_actionBlue_Theme_triggered();
-
-    void wheelEvent(QWheelEvent *event);
-
-    void mousePressEvent(QMouseEvent *event);
-
-    void on_pushButton_2_clicked();
-
-    void on_pushButton_3_clicked();
-
-    void on_actionYellow_Theme_triggered();
-
-    void on_pushButton_5_clicked();
-
-    void on_pushButton_4_clicked();
-
-    void on_pushButton_6_clicked();
-
-    void on_actionNew_triggered();
-
-    void on_actionOpen_triggered();
 
 private:
     Ui::MainWindow *ui;
+
+    void populateScene();
+
+    QGraphicsScene *scene;
+    QSplitter *h1Splitter;
+    QSplitter *h2Splitter;
 
     //Controller type that will be selected from QListWidget will be stored here
     QListWidgetItem main_controllertypeitem;
@@ -73,7 +59,7 @@ private:
     QString main_bytepathinput = "";
 
     //All led info will be stored here
-    QVector<int> ledlist;
+    //QVector<int> ledlist;
 
     //Cursor status is Cursor type during draw
     CursorStatus cursorStatus = CURSOR;                                     //default
@@ -85,7 +71,7 @@ private:
     int sketchStyle = 1;                                                    //default
 
     //QGraphicsScene object for QgraphicsView (this is our sketch screen)
-    QGraphicsScene *scene = new QGraphicsScene(this);
+    //QGraphicsScene *scene = new QGraphicsScene(this);
 
 };
 #endif // MAINWINDOW_H

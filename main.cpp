@@ -6,8 +6,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    newsketch_screen initscreen;
-    initscreen.show();
+    //newsketch_screen initscreen;
+    //initscreen.show();
 
     MainWindow w;
     w.show();
