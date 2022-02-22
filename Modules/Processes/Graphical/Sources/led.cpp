@@ -41,7 +41,7 @@ void Led::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidg
 
         QBrush b = painter->brush();
         painter->setBrush(fillColor);
-        painter->drawRect(13, 13, 97, 57);
+        //painter->drawRect(13, 13, 97, 57);
         painter->setBrush(b);
         return;
     }
@@ -56,18 +56,19 @@ void Led::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidg
     QBrush b = painter->brush();
     painter->setBrush(QBrush(fillColor.dark(option->state & QStyle::State_Sunken ? 120 : 100)));
 
-    painter->drawRect(QRect(14, 14, 79, 39));
+    //painter->drawRect(QRect(14, 14, 79, 39));
     painter->setBrush(b);
 
+    /*  Draw ____|
     if (lod >= 1) {
         painter->setPen(QPen(Qt::gray, 1));
         painter->drawLine(15, 54, 94, 54);
         painter->drawLine(94, 53, 94, 15);
         painter->setPen(QPen(Qt::black, 0));
-    }
+    }*/
 
     // Draw text
-    if (lod >= 2) {
+    /*if (lod >= 2) {
         QFont font("Times", 10);
         font.setStyleStrategy(QFont::ForceOutline);
         painter->setFont(font);
@@ -77,11 +78,11 @@ void Led::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidg
         painter->drawText(170, 200, QString("Serial number: DLWR-WEER-123L-ZZ33-SDSJ"));
         painter->drawText(170, 220, QString("Manufacturer: Chip Manufacturer"));
         painter->restore();
-    }
+    }*/
 
     // Draw lines
     QVarLengthArray<QLineF, 36> lines;
-    if (lod >= 0.5) {
+    /*if (lod >= 0.5) {
         for (int i = 0; i <= 10; i += (lod > 0.5 ? 1 : 2)) {
             lines.append(QLineF(18 + 7 * i, 13, 18 + 7 * i, 5));
             lines.append(QLineF(18 + 7 * i, 54, 18 + 7 * i, 62));
@@ -90,7 +91,8 @@ void Led::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidg
             lines.append(QLineF(5, 18 + i * 5, 13, 18 + i * 5));
             lines.append(QLineF(94, 18 + i * 5, 102, 18 + i * 5));
         }
-    }
+    }*/
+    //Led
     if (lod >= 0.4) {
         const QLineF lineData[] = {
             QLineF(25, 35, 35, 35),
