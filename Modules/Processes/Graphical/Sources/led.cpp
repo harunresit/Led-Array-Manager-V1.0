@@ -41,7 +41,7 @@ void Led::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidg
 
         QBrush b = painter->brush();
         painter->setBrush(fillColor);
-        //painter->drawRect(13, 13, 97, 57);
+        painter->drawRect(13, 13, 97, 57);
         painter->setBrush(b);
         return;
     }
@@ -56,7 +56,7 @@ void Led::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidg
     QBrush b = painter->brush();
     painter->setBrush(QBrush(fillColor.dark(option->state & QStyle::State_Sunken ? 120 : 100)));
 
-    //painter->drawRect(QRect(14, 14, 79, 39));
+    painter->drawRect(QRect(14, 14, 39, 39));
     painter->setBrush(b);
 
     /*  Draw ____|
@@ -81,7 +81,7 @@ void Led::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidg
     }*/
 
     // Draw lines
-    QVarLengthArray<QLineF, 36> lines;
+    //QVarLengthArray<QLineF, 36> lines;
     /*if (lod >= 0.5) {
         for (int i = 0; i <= 10; i += (lod > 0.5 ? 1 : 2)) {
             lines.append(QLineF(18 + 7 * i, 13, 18 + 7 * i, 5));
@@ -93,6 +93,7 @@ void Led::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidg
         }
     }*/
     //Led
+    /*
     if (lod >= 0.4) {
         const QLineF lineData[] = {
             QLineF(25, 35, 35, 35),
@@ -103,8 +104,8 @@ void Led::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidg
             QLineF(45, 35, 55, 35)
         };
         lines.append(lineData, 6);
-    }
-    painter->drawLines(lines.data(), lines.size());
+    }*/
+    //painter->drawLines(lines.data(), lines.size());
 
     // Draw red ink
     if (stuff.size() > 1) {

@@ -47,15 +47,16 @@ void MainWindow::populateScene() {
     // Populate scene
     int xx = 0;
     int nitems = 0;
-    for (int i = -1000; i < 1000; i += 110) {
+    for (int i = -1000; i < 1000; i += 50) {   //step: 110
         ++xx;
         int yy = 0;
-        for (int j = -7000; j < 7000; j += 70) {
+        for (int j = -7000; j < 7000; j += 50) {    //step: 70
             ++yy;
-            qreal x = (i + 11000) / 22000.0;
-            qreal y = (j + 7000) / 14000.0;
+            //qreal x = (i + 11000) / 22000.0;
+            //qreal y = (j + 7000) / 14000.0;
 
-            QColor color(image.pixel(int(image.width() * x), int(image.height() * y)));
+            //QColor color(image.pixel(int(image.width() * x), int(image.height() * y)));
+            QColor color(250,150,150);
             QGraphicsItem *item = new Led(color, xx, yy);
             item->setPos(QPointF(i, j));
             scene->addItem(item);
