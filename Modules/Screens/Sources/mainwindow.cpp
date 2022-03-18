@@ -42,22 +42,24 @@ void MainWindow::setParameters(QListWidgetItem ctrTypeName, int lghtNumber, QStr
 void MainWindow::populateScene() {
     scene = new QGraphicsScene(this);
 
-    QImage image(scene->width(), scene->height(), QImage::Format_ARGB32);
+    //QImage image(scene->width(), scene->height(), QImage::Format_ARGB32);
 
     // Populate scene
     int xx = 0;
     int nitems = 0;
-    for (int i = -1000; i < 1000; i += 50) {   //step: 110
+    for (int i = 0; i < 2000; i += 50) {   //step: 110 //-1000,1000
         ++xx;
         int yy = 0;
-        for (int j = -7000; j < 7000; j += 50) {    //step: 70
+        for (int j = 0; j < 14000; j += 50) {    //step: 70 //-7000,7000
             ++yy;
             //qreal x = (i + 11000) / 22000.0;
             //qreal y = (j + 7000) / 14000.0;
 
             //QColor color(image.pixel(int(image.width() * x), int(image.height() * y)));
-            QColor color(250,150,150);
+            QColor color(250,250,150);
             QGraphicsItem *item = new Led(color, xx, yy);
+            //item->setVisible(false);
+            item->setOpacity(0.1);
             item->setPos(QPointF(i, j));
             scene->addItem(item);
 

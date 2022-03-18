@@ -124,6 +124,11 @@ void Led::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidg
 void Led::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
+    if (this->opacity() == 0.1) {
+        this->setOpacity(1);
+    } else {
+        this->setOpacity(0.1);
+    }
     update();
 }
 
@@ -134,7 +139,7 @@ void Led::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         update();
         return;
     }
-    QGraphicsItem::mouseMoveEvent(event);
+    //QGraphicsItem::mouseMoveEvent(event);
 }
 
 void Led::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)

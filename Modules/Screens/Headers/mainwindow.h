@@ -30,6 +30,8 @@ public:
 
     void setParameters(QListWidgetItem ctrTypeName, int lghtNumber, QString sketch_input, QString byte_input);
 
+    QGraphicsScene *scene;
+
     enum CursorStatus{
         LED,
         CURSOR,
@@ -42,7 +44,6 @@ private:
 
     void populateScene();
 
-    QGraphicsScene *scene;
     QSplitter *h1Splitter;
     QSplitter *h2Splitter;
 

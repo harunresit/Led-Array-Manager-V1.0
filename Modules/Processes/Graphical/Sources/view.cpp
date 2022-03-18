@@ -1,4 +1,8 @@
 #include "Modules/Processes/Graphical/Headers/view.h"
+#include "Modules/Screens/Headers/mainwindow.h"
+#include "Modules/Processes/Graphical/Headers/led.h"
+
+#include <QDebug>
 
 #if defined(QT_PRINTSUPPORT_LIB)
 #include <QtPrintSupport/qtprintsupportglobal.h>
@@ -27,6 +31,40 @@ void GraphicsView::wheelEvent(QWheelEvent *e)
         QGraphicsView::wheelEvent(e);
     }
 }
+/*
+void GraphicsView::mousePressEvent(QMouseEvent *event)
+{
+    if (view->ledAddable) {
+        qDebug() << event->pos() << endl;
+        //QColor color(250,250,150);
+        //QGraphicsItem *item = new Led(color, 20, 20);
+        //item->setPos(QPointF(event->x(), event->y()));
+        //this->scene()->addItem(item);
+
+        //Totally we have 11200 items
+        //It's starting to occure from right bottom, and going up
+
+        if (view->tickorder) {
+            view->indis -= 5600;
+        } else {
+            view->indis += 5600;
+        }
+        if (view->ticknumber == 2) {
+            view->tickindisextra++;
+            view->ticknumber = 0;
+        }
+        this->scene()->items().at(view->indis + view->tickindisextra)->setOpacity(1);
+        for (int i = 0; i < 0; i++) {
+            //this->scene()->items().at(i)->setVisible(true);
+            //this->scene()->items().at(i)->setOpacity(1);
+        }
+        view->tickorder = !(view->tickorder);
+        view->ticknumber++;
+        event->accept();
+    } else {
+        event->ignore();
+    }
+}*/
 #endif
 
 View::View(const QString &name, QWidget *parent)
@@ -102,6 +140,12 @@ View::View(const QString &name, QWidget *parent)
     dragModeButton->setText(tr("Drag"));
     dragModeButton->setCheckable(true);
     dragModeButton->setChecked(false);
+    ///Added
+    //ledAddButton = new QToolButton;
+    //ledAddButton->setText(tr("Add"));
+    //ledAddButton->setCheckable(true);
+    //ledAddButton->setChecked(false);
+    ///
     antialiasButton = new QToolButton;
     antialiasButton->setText(tr("Antialiasing"));
     antialiasButton->setCheckable(true);
@@ -121,12 +165,18 @@ View::View(const QString &name, QWidget *parent)
     pointerModeGroup->setExclusive(true);
     pointerModeGroup->addButton(selectModeButton);
     pointerModeGroup->addButton(dragModeButton);
+    ///Added
+    //pointerModeGroup->addButton(ledAddButton);
+    ///
 
     labelLayout->addWidget(label);
     labelLayout->addStretch();
     labelLayout->addWidget(label2);
     labelLayout->addWidget(selectModeButton);
     labelLayout->addWidget(dragModeButton);
+    ///Added
+    //labelLayout->addWidget(ledAddButton);
+    ///
     labelLayout->addStretch();
     labelLayout->addWidget(antialiasButton);
     labelLayout->addWidget(openGlButton);
@@ -149,6 +199,9 @@ View::View(const QString &name, QWidget *parent)
             this, SLOT(setResetButtonEnabled()));
     connect(selectModeButton, SIGNAL(toggled(bool)), this, SLOT(togglePointerMode()));
     connect(dragModeButton, SIGNAL(toggled(bool)), this, SLOT(togglePointerMode()));
+    ///Added
+    //connect(ledAddButton, SIGNAL(toggled(bool)), this, SLOT(togglePointerMode()));
+    ///
     connect(antialiasButton, SIGNAL(toggled(bool)), this, SLOT(toggleAntialiasing()));
     connect(openGlButton, SIGNAL(toggled(bool)), this, SLOT(toggleOpenGL()));
     connect(rotateLeftIcon, SIGNAL(clicked()), this, SLOT(rotateLeft()));
@@ -194,6 +247,19 @@ void View::setupMatrix()
 
 void View::togglePointerMode()
 {
+    /*
+    if (dragModeButton->isChecked()) {
+        graphicsView->setDragMode(QGraphicsView::ScrollHandDrag);
+    } else {
+        graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
+    }
+    if (ledAddButton->isChecked()) {
+        ledAddable = true;
+    } else {
+        ledAddable = false;
+    }
+    graphicsView->setInteractive(selectModeButton->isChecked());*/
+
     graphicsView->setDragMode(selectModeButton->isChecked()
                               ? QGraphicsView::RubberBandDrag
                               : QGraphicsView::ScrollHandDrag);

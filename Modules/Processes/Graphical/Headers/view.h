@@ -17,10 +17,12 @@ class GraphicsView : public QGraphicsView
     Q_OBJECT
 public:
     GraphicsView(View *v) : QGraphicsView(), view(v) { }
-
 protected:
 #if QT_CONFIG(wheelevent)
     void wheelEvent(QWheelEvent *) override;
+    ///Added
+    //void mousePressEvent(QMouseEvent *event) override;
+    ///
 #endif
 
 private:
@@ -34,6 +36,14 @@ public:
     explicit View(const QString &name, QWidget *parent = 0);
 
     QGraphicsView *view() const;
+
+    ///Added
+    bool ledAddable = false;
+    int indis = 0;
+    int ticknumber = 0;
+    int tickindisextra = 0;
+    bool tickorder = 0;
+    ///
 
 public slots:
     void zoomIn(int level = 1);
@@ -56,6 +66,9 @@ private:
     QLabel *label2;
     QToolButton *selectModeButton;
     QToolButton *dragModeButton;
+    ///Added
+    //QToolButton *ledAddButton;
+    ///
     QToolButton *openGlButton;
     QToolButton *antialiasButton;
     QToolButton *printButton;
