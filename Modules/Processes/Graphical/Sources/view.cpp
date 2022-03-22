@@ -225,7 +225,11 @@ void View::resetView()
     setupMatrix();
     graphicsView->ensureVisible(QRectF(0, 0, 0, 0));
 
-    resetButton->setEnabled(false);
+    for (auto i : view()->scene()->items()) {
+        i->setOpacity(0.1);
+    }
+
+    //resetButton->setEnabled(false);
 }
 
 void View::setResetButtonEnabled()

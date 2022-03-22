@@ -42,7 +42,7 @@ public:
 private:
     Ui::MainWindow *ui;
 
-    void populateScene();
+    void populateScene(int lednumber);
 
     QSplitter *h1Splitter;
     QSplitter *h2Splitter;
