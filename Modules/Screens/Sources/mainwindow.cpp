@@ -2,12 +2,12 @@
 #include "ui_mainwindow.h"
 #include "Modules/Screens/Headers/newsketch_screen.h"
 #include "Modules/Processes/Graphical/Headers/draw.h"
-#include "Modules/Processes/Graphical/Headers/led.h"
 #include "Modules/Processes/Graphical/Headers/view.h"
 
 #include <QDebug>
 #include <QFileDialog>
 #include <qmath.h>
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -18,6 +18,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     //ui->sketchgraphicsView->setScene(scene);
     //ui->sketchgraphicsView->setBackgroundBrush(QBrush(Draw().drawPattern(sketchStyle, sketchGridSize, QColor(216,15,15))));
+
+   // QTimer *timer = new QTimer();
+    //connect(timer, SIGNAL(timeout()), this, SLOT(clickedLed()));
 
 }
 
@@ -39,6 +42,17 @@ void MainWindow::setParameters(QListWidgetItem ctrTypeName, int lghtNumber, QStr
     view->view()->setScene(scene);
 
     ui->gridLayout->addWidget(view);
+
+    scene->setItemIndexMethod(QGraphicsScene::BspTreeIndex);
+
+    ///// DENEME
+    scene->addLine(40,20,110,20, QPen(Qt::red, 3));
+    /////
+}
+
+void MainWindow::clickedLed()
+{
+    qDebug() << "ccccc" << endl;
 }
 
 void MainWindow::populateScene(int lednumber) {
@@ -52,6 +66,7 @@ void MainWindow::populateScene(int lednumber) {
     qDebug() << x_edge << endl;
     qDebug() << y_edge << endl;
     qDebug() << imaginel_lednumber << endl;
+
 
     // Populate scene
     int xx = 0;
@@ -68,11 +83,13 @@ void MainWindow::populateScene(int lednumber) {
 
             //QColor color(image.pixel(int(image.width() * x), int(image.height() * y)));
             QColor color(250,250,150);
-            QGraphicsItem *item = new Led(color, xx, yy);
+            Led *item = new Led(color, xx, yy);
             //item->setVisible(false);
             item->setOpacity(0.1);
             item->setPos(QPointF(i, j));
             scene->addItem(item);
+
+            connect(item, SIGNAL(viewPressed()), this, SLOT(clickedLed()));
 
             ++nitems;
         }

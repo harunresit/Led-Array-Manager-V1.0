@@ -56,14 +56,15 @@ void Led::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidg
     QBrush b = painter->brush();
     painter->setBrush(QBrush(fillColor.dark(option->state & QStyle::State_Sunken ? 120 : 100)));
 
-    painter->drawRect(QRect(14, 14, 39, 39));
+    painter->drawRect(QRect(0, 0, 40, 40));   //14, 14, 39, 39
     painter->setBrush(b);
 
-    /*  Draw ____|
+    /*
+    //Draw ____|
     if (lod >= 1) {
-        painter->setPen(QPen(Qt::gray, 1));
-        painter->drawLine(15, 54, 94, 54);
-        painter->drawLine(94, 53, 94, 15);
+        //painter->setPen(QPen(Qt::gray, 1));
+        painter->drawLine(15, 54, 94, 54);   //15, 54, 94, 54
+        painter->drawLine(94, 53, 94, 15);   //94, 53, 94, 15
         painter->setPen(QPen(Qt::black, 0));
     }*/
 
@@ -130,6 +131,17 @@ void Led::mousePressEvent(QGraphicsSceneMouseEvent *event)
         this->setOpacity(0.1);
     }
     update();
+    qDebug() << "Now X:" << this->x << endl;
+    qDebug() << "Now Y:" << this->y << endl;
+    qDebug() << "Previous X:" << previousitem_x << endl;
+    qDebug() << "Previous Y:" << previousitem_y << endl;
+    previousitem_x = this->x; //Bu degisken guncellenmiyor cunku, bu fonksiyon calistiginda
+                              //Farklı bir led nesnesine giriyor
+    previousitem_y = this->y;
+
+
+    emit viewPressed();
+
 }
 
 void Led::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
@@ -139,7 +151,6 @@ void Led::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
         update();
         return;
     }
-    //QGraphicsItem::mouseMoveEvent(event);
 }
 
 void Led::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)

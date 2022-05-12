@@ -13,7 +13,9 @@ QVector<int> ledlist
 #include <QGraphicsScene>
 #include <QWheelEvent>
 #include <QSplitter>
+#include <QObject>
 #include "Modules/Processes/Graphical/Headers/view.h"
+#include "Modules/Processes/Graphical/Headers/led.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -73,6 +75,9 @@ private:
 
     //QGraphicsScene object for QgraphicsView (this is our sketch screen)
     //QGraphicsScene *scene = new QGraphicsScene(this);
+
+private slots:
+    void clickedLed();
 
 };
 #endif // MAINWINDOW_H
