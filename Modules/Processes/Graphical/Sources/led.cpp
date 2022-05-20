@@ -126,21 +126,19 @@ void Led::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mousePressEvent(event);
     if (this->opacity() == 0.1) {
-        this->setOpacity(1);
+        //this->setOpacity(1);
     } else {
-        this->setOpacity(0.1);
+        //this->setOpacity(0.1);
     }
     update();
-    qDebug() << "Now X:" << this->x << endl;
-    qDebug() << "Now Y:" << this->y << endl;
-    qDebug() << "Previous X:" << previousitem_x << endl;
-    qDebug() << "Previous Y:" << previousitem_y << endl;
     previousitem_x = this->x; //Bu degisken guncellenmiyor cunku, bu fonksiyon calistiginda
                               //Farklı bir led nesnesine giriyor
     previousitem_y = this->y;
 
+    //this->scene()->items().at(number)->setOpacity(0.5);
+    //qDebug() << number << endl;
 
-    emit viewPressed();
+    emit viewPressed(this);
 
 }
 
@@ -158,3 +156,24 @@ void Led::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsItem::mouseReleaseEvent(event);
     update();
 }
+
+void Led::setNumber(int num)
+{
+    number = num;
+}
+
+int Led::returnNum()
+{
+    return number;
+}
+
+int Led::returnX()
+{
+    return x;
+}
+
+int Led::returnY()
+{
+    return y;
+}
+

@@ -7,7 +7,6 @@
 #include <QDebug>
 #include <QFileDialog>
 #include <qmath.h>
-#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -18,9 +17,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     //ui->sketchgraphicsView->setScene(scene);
     //ui->sketchgraphicsView->setBackgroundBrush(QBrush(Draw().drawPattern(sketchStyle, sketchGridSize, QColor(216,15,15))));
-
-   // QTimer *timer = new QTimer();
-    //connect(timer, SIGNAL(timeout()), this, SLOT(clickedLed()));
 
 }
 
@@ -43,16 +39,45 @@ void MainWindow::setParameters(QListWidgetItem ctrTypeName, int lghtNumber, QStr
 
     ui->gridLayout->addWidget(view);
 
-    scene->setItemIndexMethod(QGraphicsScene::BspTreeIndex);
+    scene->setItemIndexMethod(QGraphicsScene::NoIndex);
 
     ///// DENEME
-    scene->addLine(40,20,110,20, QPen(Qt::red, 3));
+    //scene->addLine(40,20,110,20, QPen(Qt::red, 3));
     /////
 }
 
-void MainWindow::clickedLed()
+void MainWindow::clickedLed(Led *led)
 {
-    qDebug() << "ccccc" << endl;
+    led->setNumber(ledCount);
+    qDebug() << led->returnNum() << endl;
+    if (clickedLedList.empty()) {
+        qDebug() << "This shit was just empty" << endl;
+        clickedLedList.append(led);
+        led->setOpacity(1);
+        ledCount += 1;
+    } else {
+        ///Faint to Shiny
+        if (led->opacity() == 0.1) {
+
+            led->setOpacity(1);
+            ledCount += 1;
+
+            ///Drawing line process
+            QGraphicsLineItem *line = scene->addLine(clickedLedList.at(ledCount-2)->pos().x()+20, clickedLedList.at(ledCount-2)->pos().y()+20, led->pos().x()+20, led->pos().y()+20, QPen(Qt::red, 3));
+
+            lines.append(line);
+
+            clickedLedList.append(led);
+        } else {
+            ///Shint to Faint
+            led->setOpacity(0.1);
+            scene->removeItem(lines.at(ledCount-2));
+            lines.remove(ledCount-2);
+            clickedLedList.remove(ledCount-1);
+            ledCount--;
+        }
+    }
+    qDebug() << "CLICKED LED" << endl;
 }
 
 void MainWindow::populateScene(int lednumber) {
@@ -87,9 +112,10 @@ void MainWindow::populateScene(int lednumber) {
             //item->setVisible(false);
             item->setOpacity(0.1);
             item->setPos(QPointF(i, j));
+
             scene->addItem(item);
 
-            connect(item, SIGNAL(viewPressed()), this, SLOT(clickedLed()));
+            connect(item, SIGNAL(viewPressed(Led*)), this, SLOT(clickedLed(Led*)));
 
             ++nitems;
         }

@@ -14,6 +14,7 @@ QVector<int> ledlist
 #include <QWheelEvent>
 #include <QSplitter>
 #include <QObject>
+#include <QGraphicsLineItem>
 #include "Modules/Processes/Graphical/Headers/view.h"
 #include "Modules/Processes/Graphical/Headers/led.h"
 
@@ -76,8 +77,13 @@ private:
     //QGraphicsScene object for QgraphicsView (this is our sketch screen)
     //QGraphicsScene *scene = new QGraphicsScene(this);
 
+    QVector<QGraphicsLineItem*> lines;
+    QVector<Led*> clickedLedList;
+
+    int ledCount = 0;
+
 private slots:
-    void clickedLed();
+    void clickedLed(Led*);
 
 };
 #endif // MAINWINDOW_H

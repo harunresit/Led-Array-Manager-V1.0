@@ -16,9 +16,15 @@ public:
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *item, QWidget *widget) override;
+    int returnNum();
+    int returnX();
+    int returnY();
+
+    ///Modified
+    void setNumber(int num);
 
 signals:
-    void viewPressed();
+    void viewPressed(Led*);
 
 protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
@@ -34,6 +40,7 @@ private:
     //Modified
     int previousitem_x = 0;
     int previousitem_y = 0;
+    int number = 0;
 
 };
 
