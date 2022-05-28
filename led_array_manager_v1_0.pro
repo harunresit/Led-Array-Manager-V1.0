@@ -26,7 +26,8 @@ SOURCES += \
     Modules/Processes/Graphical/Sources/draw.cpp \
     Modules/Processes/File/Sources/save.cpp \
     Modules/Screens/Sources/mainwindow.cpp \
-    Modules/Screens/Sources/newsketch_screen.cpp
+    Modules/Screens/Sources/newsketch_screen.cpp \
+    Modules/Screens/Sources/animationrgb.cpp
 
 HEADERS += \
     Modules/Processes/File/Headers/config.h \
@@ -34,10 +35,12 @@ HEADERS += \
     Modules/Processes/File/Headers/save.h \
     Modules/Processes/Graphical/Headers/led.h \
     Modules/Processes/Graphical/Headers/view.h \
+    Modules/Screens/Headers/animationrgb.h \
     Modules/Screens/Headers/mainwindow.h \
     Modules/Screens/Headers/newsketch_screen.h
 
 FORMS += \
+    Modules/Screens/animationrgb.ui \
     Modules/Screens/mainwindow.ui \
     Modules/Screens/newsketch_screen.ui
 

@@ -141,11 +141,11 @@ View::View(const QString &name, QWidget *parent)
     dragModeButton->setCheckable(true);
     dragModeButton->setChecked(false);
     ///Added
-    //ledAddButton = new QToolButton;
-    //ledAddButton->setText(tr("Add"));
-    //ledAddButton->setCheckable(true);
-    //ledAddButton->setChecked(false);
-    ///
+    animationaddModeButton = new QToolButton;
+    animationaddModeButton->setText(tr("Anim"));
+    animationaddModeButton->setCheckable(true);
+    animationaddModeButton->setChecked(false);
+
     antialiasButton = new QToolButton;
     antialiasButton->setText(tr("Antialiasing"));
     antialiasButton->setCheckable(true);
@@ -166,8 +166,7 @@ View::View(const QString &name, QWidget *parent)
     pointerModeGroup->addButton(selectModeButton);
     pointerModeGroup->addButton(dragModeButton);
     ///Added
-    //pointerModeGroup->addButton(ledAddButton);
-    ///
+    pointerModeGroup->addButton(animationaddModeButton);
 
     labelLayout->addWidget(label);
     labelLayout->addStretch();
@@ -175,7 +174,7 @@ View::View(const QString &name, QWidget *parent)
     labelLayout->addWidget(selectModeButton);
     labelLayout->addWidget(dragModeButton);
     ///Added
-    //labelLayout->addWidget(ledAddButton);
+    labelLayout->addWidget(animationaddModeButton);
     ///
     labelLayout->addStretch();
     labelLayout->addWidget(antialiasButton);
@@ -200,7 +199,7 @@ View::View(const QString &name, QWidget *parent)
     connect(selectModeButton, SIGNAL(toggled(bool)), this, SLOT(togglePointerMode()));
     connect(dragModeButton, SIGNAL(toggled(bool)), this, SLOT(togglePointerMode()));
     ///Added
-    //connect(ledAddButton, SIGNAL(toggled(bool)), this, SLOT(togglePointerMode()));
+    connect(animationaddModeButton, SIGNAL(toggled(bool)), this, SLOT(togglePointerMode()));
     ///
     connect(antialiasButton, SIGNAL(toggled(bool)), this, SLOT(toggleAntialiasing()));
     connect(openGlButton, SIGNAL(toggled(bool)), this, SLOT(toggleOpenGL()));
@@ -216,6 +215,15 @@ View::View(const QString &name, QWidget *parent)
 QGraphicsView *View::view() const
 {
     return static_cast<QGraphicsView *>(graphicsView);
+}
+
+bool View::modeAnim()
+{
+    if (animationaddModeButton->isChecked()) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 void View::resetView()
@@ -264,10 +272,11 @@ void View::togglePointerMode()
     }
     graphicsView->setInteractive(selectModeButton->isChecked());*/
 
-    graphicsView->setDragMode(selectModeButton->isChecked()
+    graphicsView->setDragMode(selectModeButton->isChecked() || animationaddModeButton->isChecked()
                               ? QGraphicsView::RubberBandDrag
                               : QGraphicsView::ScrollHandDrag);
-    graphicsView->setInteractive(selectModeButton->isChecked());
+
+    graphicsView->setInteractive(selectModeButton->isChecked() || animationaddModeButton->isChecked());
 }
 
 void View::toggleOpenGL()

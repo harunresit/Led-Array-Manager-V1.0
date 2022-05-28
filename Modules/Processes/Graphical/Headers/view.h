@@ -45,6 +45,8 @@ public:
     bool tickorder = 0;
     ///
 
+    bool modeAnim();
+
 public slots:
     void zoomIn(int level = 1);
     void zoomOut(int level = 1);
@@ -66,6 +68,7 @@ private:
     QLabel *label2;
     QToolButton *selectModeButton;
     QToolButton *dragModeButton;
+    QToolButton *animationaddModeButton;
     ///Added
     //QToolButton *ledAddButton;
     ///

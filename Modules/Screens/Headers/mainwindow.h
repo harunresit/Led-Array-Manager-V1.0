@@ -15,6 +15,7 @@ QVector<int> ledlist
 #include <QSplitter>
 #include <QObject>
 #include <QGraphicsLineItem>
+#include <QFrame>
 #include "Modules/Processes/Graphical/Headers/view.h"
 #include "Modules/Processes/Graphical/Headers/led.h"
 
@@ -33,6 +34,8 @@ public:
 
     void setParameters(QListWidgetItem ctrTypeName, int lghtNumber, QString sketch_input, QString byte_input);
 
+    void setAnimParams(int rgb, int offtime, int ontime);
+
     QGraphicsScene *scene;
 
     enum CursorStatus{
@@ -41,6 +44,7 @@ public:
         ERASER
     };
 
+    View *view;
 
 private:
     Ui::MainWindow *ui;
@@ -82,8 +86,15 @@ private:
 
     int ledCount = 0;
 
+    //Animation parameters
+    int rgbofled = 0;
+    int ontimeofled = 0;
+    int offtimeofled = 0;
+
 private slots:
     void clickedLed(Led*);
+
+    void rgbAnimOk(int,int,int);
 
 };
 #endif // MAINWINDOW_H

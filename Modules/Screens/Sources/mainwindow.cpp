@@ -3,10 +3,12 @@
 #include "Modules/Screens/Headers/newsketch_screen.h"
 #include "Modules/Processes/Graphical/Headers/draw.h"
 #include "Modules/Processes/Graphical/Headers/view.h"
+#include "Modules/Screens/Headers/animationrgb.h"
 
 #include <QDebug>
 #include <QFileDialog>
 #include <qmath.h>
+#include <QLabel>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -34,7 +36,8 @@ void MainWindow::setParameters(QListWidgetItem ctrTypeName, int lghtNumber, QStr
 
     populateScene(main_lightnumber);
 
-    View *view = new View("Drawing sketch");
+    view = new View("Drawing sketch");
+
     view->view()->setScene(scene);
 
     ui->gridLayout->addWidget(view);
@@ -48,36 +51,56 @@ void MainWindow::setParameters(QListWidgetItem ctrTypeName, int lghtNumber, QStr
 
 void MainWindow::clickedLed(Led *led)
 {
-    led->setNumber(ledCount);
-    qDebug() << led->returnNum() << endl;
-    if (clickedLedList.empty()) {
-        qDebug() << "This shit was just empty" << endl;
-        clickedLedList.append(led);
-        led->setOpacity(1);
-        ledCount += 1;
-    } else {
-        ///Faint to Shiny
-        if (led->opacity() == 0.1) {
-
+    if (view->modeAnim() == false) {
+        ///Led point mode
+        led->setNumber(ledCount);
+        qDebug() << led->returnNum() << endl;
+        if (clickedLedList.empty()) {
+            qDebug() << "This shit was just empty" << endl;
+            clickedLedList.append(led);
             led->setOpacity(1);
             ledCount += 1;
-
-            ///Drawing line process
-            QGraphicsLineItem *line = scene->addLine(clickedLedList.at(ledCount-2)->pos().x()+20, clickedLedList.at(ledCount-2)->pos().y()+20, led->pos().x()+20, led->pos().y()+20, QPen(Qt::red, 3));
-
-            lines.append(line);
-
-            clickedLedList.append(led);
         } else {
-            ///Shint to Faint
-            led->setOpacity(0.1);
-            scene->removeItem(lines.at(ledCount-2));
-            lines.remove(ledCount-2);
-            clickedLedList.remove(ledCount-1);
-            ledCount--;
+            ///Faint to Shiny
+            if (led->opacity() == 0.1) {
+
+                led->setOpacity(1);
+                ledCount += 1;
+
+                ///Drawing line process
+                QGraphicsLineItem *line = scene->addLine(clickedLedList.at(ledCount-2)->pos().x()+20, clickedLedList.at(ledCount-2)->pos().y()+20, led->pos().x()+20, led->pos().y()+20, QPen(Qt::red, 3));
+
+                lines.append(line);
+
+                clickedLedList.append(led);
+            } else {
+                ///Shint to Faint
+                led->setOpacity(0.1);
+                scene->removeItem(lines.at(ledCount-2));
+                lines.remove(ledCount-2);
+                clickedLedList.remove(ledCount-1);
+                ledCount--;
+            }
         }
+    } else {
+        ///Animation mode
+        qDebug() << "ANIMATION MODE ON" << endl;
+        AnimationRGB *rgbScreen = new AnimationRGB();
+        connect(rgbScreen, SIGNAL(dialogAccepted(int,int,int)), this, SLOT(rgbAnimOk(int,int,int)));
+        rgbScreen->show();
     }
+
     qDebug() << "CLICKED LED" << endl;
+}
+
+void MainWindow::rgbAnimOk(int rgb, int ontime, int offtime)
+{
+    qDebug() << "RGB Value: " << rgb << endl;
+    qDebug() << "ON Time:   " << ontime << endl;
+    qDebug() << "OFF Time:  " << offtime << endl;
+    rgbofled = rgb;
+    ontimeofled = ontime;
+    offtimeofled = offtime;
 }
 
 void MainWindow::populateScene(int lednumber) {
