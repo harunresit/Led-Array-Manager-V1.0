@@ -145,6 +145,10 @@ View::View(const QString &name, QWidget *parent)
     animationaddModeButton->setText(tr("Anim"));
     animationaddModeButton->setCheckable(true);
     animationaddModeButton->setChecked(false);
+    ///Added
+    startAnimationButton = new QToolButton;
+    startAnimationButton->setText(tr("Start"));
+    startAnimationButton->setCheckable(false);
 
     antialiasButton = new QToolButton;
     antialiasButton->setText(tr("Antialiasing"));
@@ -167,6 +171,7 @@ View::View(const QString &name, QWidget *parent)
     pointerModeGroup->addButton(dragModeButton);
     ///Added
     pointerModeGroup->addButton(animationaddModeButton);
+    pointerModeGroup->addButton(startAnimationButton);
 
     labelLayout->addWidget(label);
     labelLayout->addStretch();
@@ -175,6 +180,7 @@ View::View(const QString &name, QWidget *parent)
     labelLayout->addWidget(dragModeButton);
     ///Added
     labelLayout->addWidget(animationaddModeButton);
+    labelLayout->addWidget(startAnimationButton);
     ///
     labelLayout->addStretch();
     labelLayout->addWidget(antialiasButton);
@@ -200,6 +206,7 @@ View::View(const QString &name, QWidget *parent)
     connect(dragModeButton, SIGNAL(toggled(bool)), this, SLOT(togglePointerMode()));
     ///Added
     connect(animationaddModeButton, SIGNAL(toggled(bool)), this, SLOT(togglePointerMode()));
+    connect(startAnimationButton, SIGNAL(clicked()), this, SLOT(animationStart()));
     ///
     connect(antialiasButton, SIGNAL(toggled(bool)), this, SLOT(toggleAntialiasing()));
     connect(openGlButton, SIGNAL(toggled(bool)), this, SLOT(toggleOpenGL()));
@@ -321,4 +328,9 @@ void View::rotateLeft()
 void View::rotateRight()
 {
     rotateSlider->setValue(rotateSlider->value() + 10);
+}
+
+void View::animationStart()
+{
+    emit sendAnimSignal();
 }

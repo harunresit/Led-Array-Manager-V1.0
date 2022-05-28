@@ -47,6 +47,9 @@ public:
 
     bool modeAnim();
 
+signals:
+    void sendAnimSignal();
+
 public slots:
     void zoomIn(int level = 1);
     void zoomOut(int level = 1);
@@ -61,6 +64,7 @@ private slots:
     void print();
     void rotateLeft();
     void rotateRight();
+    void animationStart();
 
 private:
     GraphicsView *graphicsView;
@@ -69,6 +73,7 @@ private:
     QToolButton *selectModeButton;
     QToolButton *dragModeButton;
     QToolButton *animationaddModeButton;
+    QToolButton *startAnimationButton;
     ///Added
     //QToolButton *ledAddButton;
     ///

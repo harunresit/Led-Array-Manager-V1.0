@@ -44,6 +44,13 @@ public:
         ERASER
     };
 
+    struct LedAnim {
+        Led *led;
+        int rgbvalue;
+        int ontimevalue;
+        int offtimevalue;
+    };
+
     View *view;
 
 private:
@@ -84,17 +91,19 @@ private:
     QVector<QGraphicsLineItem*> lines;
     QVector<Led*> clickedLedList;
 
+    //Animation parameters
+    Led *clickedLedforAnim;
+    QVector<LedAnim> animLedList;
+
     int ledCount = 0;
 
-    //Animation parameters
-    int rgbofled = 0;
-    int ontimeofled = 0;
-    int offtimeofled = 0;
 
 private slots:
     void clickedLed(Led*);
 
     void rgbAnimOk(int,int,int);
+
+    void animationMake();
 
 };
 #endif // MAINWINDOW_H

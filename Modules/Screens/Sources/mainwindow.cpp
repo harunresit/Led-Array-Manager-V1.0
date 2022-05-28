@@ -44,6 +44,7 @@ void MainWindow::setParameters(QListWidgetItem ctrTypeName, int lghtNumber, QStr
 
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
 
+    connect(view, SIGNAL(sendAnimSignal()), this, SLOT(animationMake()));
     ///// DENEME
     //scene->addLine(40,20,110,20, QPen(Qt::red, 3));
     /////
@@ -84,10 +85,15 @@ void MainWindow::clickedLed(Led *led)
         }
     } else {
         ///Animation mode
-        qDebug() << "ANIMATION MODE ON" << endl;
-        AnimationRGB *rgbScreen = new AnimationRGB();
-        connect(rgbScreen, SIGNAL(dialogAccepted(int,int,int)), this, SLOT(rgbAnimOk(int,int,int)));
-        rgbScreen->show();
+        if (std::find(clickedLedList.begin(), clickedLedList.end(), led) != clickedLedList.end()) {
+            qDebug() << "ANIMATION MODE ON" << endl;
+            clickedLedforAnim = led;
+            AnimationRGB *rgbScreen = new AnimationRGB();
+            connect(rgbScreen, SIGNAL(dialogAccepted(int,int,int)), this, SLOT(rgbAnimOk(int,int,int)));
+            rgbScreen->show();
+        } else {
+            qDebug() << "Led not clicked" << endl;
+        }
     }
 
     qDebug() << "CLICKED LED" << endl;
@@ -98,9 +104,18 @@ void MainWindow::rgbAnimOk(int rgb, int ontime, int offtime)
     qDebug() << "RGB Value: " << rgb << endl;
     qDebug() << "ON Time:   " << ontime << endl;
     qDebug() << "OFF Time:  " << offtime << endl;
-    rgbofled = rgb;
-    ontimeofled = ontime;
-    offtimeofled = offtime;
+
+    LedAnim animled;
+    animled.led = clickedLedforAnim;
+    animled.rgbvalue = rgb;
+    animled.ontimevalue = ontime;
+    animled.offtimevalue = offtime;
+    animLedList.append(animled);
+}
+
+void MainWindow::animationMake()
+{
+    qDebug() << "Animation making started" << endl;
 }
 
 void MainWindow::populateScene(int lednumber) {
