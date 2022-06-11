@@ -16,6 +16,7 @@ QVector<int> ledlist
 #include <QObject>
 #include <QGraphicsLineItem>
 #include <QFrame>
+#include <QTimer>
 #include "Modules/Processes/Graphical/Headers/view.h"
 #include "Modules/Processes/Graphical/Headers/led.h"
 
@@ -44,11 +45,17 @@ public:
         ERASER
     };
 
-    struct LedAnim {
+    class LedAnim : public QObject {
+    public:
         Led *led;
-        int rgbvalue;
+        int redvalue;
+        int greenvalue;
+        int bluevalue;
         int ontimevalue;
         int offtimevalue;
+        QTimer *timeron;
+        QTimer *timeroff;
+
     };
 
     View *view;
@@ -93,7 +100,7 @@ private:
 
     //Animation parameters
     Led *clickedLedforAnim;
-    QVector<LedAnim> animLedList;
+    QVector<LedAnim*> animLedList;
 
     int ledCount = 0;
 
@@ -101,9 +108,14 @@ private:
 private slots:
     void clickedLed(Led*);
 
-    void rgbAnimOk(int,int,int);
+    void rgbAnimOk(int,int,int,int,int);
 
     void animationMake();
+
+    void makeAnimationLedOn(int);
+
+    void makeAnimationLedOff(int);
+
 
 };
 #endif // MAINWINDOW_H

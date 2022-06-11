@@ -23,6 +23,8 @@ public:
     ///Modified
     void setNumber(int num);
 
+    void setColor(QColor &color);
+
 signals:
     void viewPressed(Led*);
 

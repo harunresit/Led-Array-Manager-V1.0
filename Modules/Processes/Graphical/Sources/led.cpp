@@ -9,7 +9,7 @@ Led::Led(const QColor &color, int x, int y) {
     this->color = color;
     setZValue((x + y) % 2);
 
-    setFlags(ItemIsSelectable | ItemIsMovable);
+    setFlags(ItemIsSelectable);
     setAcceptHoverEvents(true);
 }
 
@@ -160,6 +160,12 @@ void Led::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void Led::setNumber(int num)
 {
     number = num;
+}
+
+void Led::setColor(QColor &color)
+{
+    this->color = color;
+    update();
 }
 
 int Led::returnNum()

@@ -9,6 +9,7 @@
 #include <QFileDialog>
 #include <qmath.h>
 #include <QLabel>
+#include <QSignalMapper>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -89,7 +90,7 @@ void MainWindow::clickedLed(Led *led)
             qDebug() << "ANIMATION MODE ON" << endl;
             clickedLedforAnim = led;
             AnimationRGB *rgbScreen = new AnimationRGB();
-            connect(rgbScreen, SIGNAL(dialogAccepted(int,int,int)), this, SLOT(rgbAnimOk(int,int,int)));
+            connect(rgbScreen, SIGNAL(dialogAccepted(int,int,int,int,int)), this, SLOT(rgbAnimOk(int,int,int,int,int)));
             rgbScreen->show();
         } else {
             qDebug() << "Led not clicked" << endl;
@@ -99,23 +100,70 @@ void MainWindow::clickedLed(Led *led)
     qDebug() << "CLICKED LED" << endl;
 }
 
-void MainWindow::rgbAnimOk(int rgb, int ontime, int offtime)
+void MainWindow::rgbAnimOk(int r, int g, int b, int ontime, int offtime)
 {
-    qDebug() << "RGB Value: " << rgb << endl;
     qDebug() << "ON Time:   " << ontime << endl;
     qDebug() << "OFF Time:  " << offtime << endl;
 
-    LedAnim animled;
-    animled.led = clickedLedforAnim;
-    animled.rgbvalue = rgb;
-    animled.ontimevalue = ontime;
-    animled.offtimevalue = offtime;
+    QColor color(r,g,b);
+    clickedLedforAnim->setColor(color);
+
+    LedAnim *animled = new LedAnim;
+    animled->led = clickedLedforAnim;
+    animled->redvalue = r;
+    animled->greenvalue = g;
+    animled->bluevalue = b;
+    animled->ontimevalue = ontime;
+    animled->offtimevalue = offtime;
+    animled->timeron = new QTimer();
+    animled->timeroff = new QTimer();
     animLedList.append(animled);
 }
 
 void MainWindow::animationMake()
 {
     qDebug() << "Animation making started" << endl;
+
+    for (int i=0; i<animLedList.size(); i++) {
+
+        ///LED ON
+        QSignalMapper* mapperOn = new QSignalMapper(this);
+        connect(mapperOn, SIGNAL(mapped(int)), this, SLOT(makeAnimationLedOn(int)));
+        mapperOn->setMapping(animLedList[i]->timeron, i);
+
+        connect(animLedList[i]->timeron, SIGNAL(timeout()), mapperOn, SLOT(map()));
+        connect(animLedList[i]->timeron, SIGNAL(timeout()), mapperOn, SLOT(map()));
+        animLedList[i]->timeron->setInterval(animLedList[i]->ontimevalue);
+
+
+        ///LED OFF
+        QSignalMapper* mapperOff = new QSignalMapper(this);
+        connect(mapperOff, SIGNAL(mapped(int)), this, SLOT(makeAnimationLedOff(int)));
+        mapperOff->setMapping(animLedList[i]->timeroff, i);
+
+        connect(animLedList[i]->timeroff, SIGNAL(timeout()), mapperOff, SLOT(map()));
+        connect(animLedList[i]->timeroff, SIGNAL(timeout()), mapperOff, SLOT(map()));
+        animLedList[i]->timeroff->setInterval(animLedList[i]->offtimevalue);
+
+        ///START ANIMATION
+        animLedList[i]->timeroff->start();
+    }
+}
+
+void MainWindow::makeAnimationLedOn(int a)
+{
+    QColor color(250,250,250);
+    animLedList[a]->led->setColor(color);
+    animLedList[a]->timeron->stop();
+    animLedList[a]->timeroff->start();
+}
+
+void MainWindow::makeAnimationLedOff(int a)
+{
+    QColor color(animLedList[a]->redvalue, animLedList[a]->greenvalue, animLedList[a]->bluevalue);
+    animLedList[a]->led->setColor(color);
+    animLedList[a]->timeroff->stop();
+    animLedList[a]->timeron->start();
 }
 
 void MainWindow::populateScene(int lednumber) {
@@ -145,7 +193,7 @@ void MainWindow::populateScene(int lednumber) {
             //qreal y = (j + 7000) / 14000.0;
 
             //QColor color(image.pixel(int(image.width() * x), int(image.height() * y)));
-            QColor color(250,250,150);
+            QColor color(250,250,250);
             Led *item = new Led(color, xx, yy);
             //item->setVisible(false);
             item->setOpacity(0.1);
@@ -160,3 +208,4 @@ void MainWindow::populateScene(int lednumber) {
     }
 
 }
+

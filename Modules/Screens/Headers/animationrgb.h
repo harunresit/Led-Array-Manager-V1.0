@@ -16,7 +16,7 @@ public:
     ~AnimationRGB();
 
 signals:
-    void dialogAccepted(int, int, int);
+    void dialogAccepted(int, int, int, int, int);
 
 private slots:
 
@@ -44,7 +44,6 @@ private:
     int red;
     int green;
     int blue;
-    int rgb;
     int ontime;
     int offtime;
 };

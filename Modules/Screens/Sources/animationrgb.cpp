@@ -12,7 +12,6 @@ AnimationRGB::AnimationRGB(QWidget *parent) :
     red = 0;
     green = 0;
     blue = 0;
-    rgb = 0;
     ontime = 0;
     offtime = 0;
 
@@ -33,7 +32,6 @@ AnimationRGB::~AnimationRGB()
 void AnimationRGB::on_spinBox_valueChanged(int arg1)
 {
     red = arg1;
-    rgb = (red + green + blue) / 3;
     ui->verticalSlider->setSliderPosition(arg1);
 
     QPalette pal;
@@ -50,7 +48,6 @@ void AnimationRGB::on_verticalSlider_valueChanged(int value)
 void AnimationRGB::on_spinBox_2_valueChanged(int arg1)
 {
     green = arg1;
-    rgb = (red + green + blue) / 3;
     ui->verticalSlider_2->setSliderPosition(arg1);
 
     QPalette pal;
@@ -67,7 +64,6 @@ void AnimationRGB::on_verticalSlider_2_valueChanged(int value)
 void AnimationRGB::on_spinBox_3_valueChanged(int arg1)
 {
     blue = arg1;
-    rgb = (red + green + blue) / 3;
     ui->verticalSlider_3->setSliderPosition(arg1);
 
     QPalette pal;
@@ -84,7 +80,7 @@ void AnimationRGB::on_verticalSlider_3_valueChanged(int value)
 
 void AnimationRGB::on_buttonBox_accepted()
 {
-    emit dialogAccepted(rgb, ontime, offtime);
+    emit dialogAccepted(red, green, blue, ontime, offtime);
 }
 
 void AnimationRGB::on_lineEdit_textEdited(const QString &arg1)
