@@ -22,6 +22,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Modules/Processes/Graphical/Sources/led.cpp \
     Modules/Processes/Graphical/Sources/view.cpp \
+    Modules/Screens/Sources/animationtimeslidersetting.cpp \
     main.cpp \
     Modules/Processes/Graphical/Sources/draw.cpp \
     Modules/Processes/File/Sources/save.cpp \
@@ -37,10 +38,12 @@ HEADERS += \
     Modules/Processes/Graphical/Headers/view.h \
     Modules/Screens/Headers/animationrgb.h \
     Modules/Screens/Headers/mainwindow.h \
-    Modules/Screens/Headers/newsketch_screen.h
+    Modules/Screens/Headers/newsketch_screen.h \
+    Modules/Screens/Headers/animationtimeslidersetting.h
 
 FORMS += \
     Modules/Screens/animationrgb.ui \
+    Modules/Screens/animationtimeslidersetting.ui \
     Modules/Screens/mainwindow.ui \
     Modules/Screens/newsketch_screen.ui
 

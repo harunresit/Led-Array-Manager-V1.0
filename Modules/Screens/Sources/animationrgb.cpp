@@ -12,8 +12,6 @@ AnimationRGB::AnimationRGB(QWidget *parent) :
     red = 0;
     green = 0;
     blue = 0;
-    ontime = 0;
-    offtime = 0;
 
     QPalette pal;
     pal = ui->pushButton->palette();
@@ -80,15 +78,5 @@ void AnimationRGB::on_verticalSlider_3_valueChanged(int value)
 
 void AnimationRGB::on_buttonBox_accepted()
 {
-    emit dialogAccepted(red, green, blue, ontime, offtime);
-}
-
-void AnimationRGB::on_lineEdit_textEdited(const QString &arg1)
-{
-    offtime = arg1.toInt();
-}
-
-void AnimationRGB::on_lineEdit_2_textEdited(const QString &arg1)
-{
-    ontime = arg1.toInt();
+    emit dialogAccepted(red, green, blue);
 }

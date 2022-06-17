@@ -16,7 +16,7 @@ public:
     ~AnimationRGB();
 
 signals:
-    void dialogAccepted(int, int, int, int, int);
+    void dialogAccepted(int, int, int);
 
 private slots:
 
@@ -34,18 +34,13 @@ private slots:
 
     void on_buttonBox_accepted();
 
-    void on_lineEdit_textEdited(const QString &arg1);
-
-    void on_lineEdit_2_textEdited(const QString &arg1);
-
 private:
     Ui::AnimationRGB *ui;
 
     int red;
     int green;
     int blue;
-    int ontime;
-    int offtime;
+
 };
 
 #endif // ANIMATIONRGB_H

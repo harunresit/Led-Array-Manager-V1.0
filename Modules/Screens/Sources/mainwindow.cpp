@@ -46,6 +46,8 @@ void MainWindow::setParameters(QListWidgetItem ctrTypeName, int lghtNumber, QStr
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
 
     connect(view, SIGNAL(sendAnimSignal()), this, SLOT(animationMake()));
+    connect(view, SIGNAL(triggerTimeLineMenu()), this, SLOT(createTimeLineMenu()));
+
     ///// DENEME
     //scene->addLine(40,20,110,20, QPen(Qt::red, 3));
     /////
@@ -90,7 +92,10 @@ void MainWindow::clickedLed(Led *led)
             qDebug() << "ANIMATION MODE ON" << endl;
             clickedLedforAnim = led;
             AnimationRGB *rgbScreen = new AnimationRGB();
-            connect(rgbScreen, SIGNAL(dialogAccepted(int,int,int,int,int)), this, SLOT(rgbAnimOk(int,int,int,int,int)));
+            connect(rgbScreen, SIGNAL(dialogAccepted(int,int,int)), this, SLOT(rgbAnimOk(int,int,int)));
+            currentLedSequence = timeSliderMenu->getSliderPos();
+            qDebug() << "Active sequence" << currentLedSequence << endl;
+            timeLimit = timeSliderMenu->getSliderMax();
             rgbScreen->show();
         } else {
             qDebug() << "Led not clicked" << endl;
@@ -100,30 +105,33 @@ void MainWindow::clickedLed(Led *led)
     qDebug() << "CLICKED LED" << endl;
 }
 
-void MainWindow::rgbAnimOk(int r, int g, int b, int ontime, int offtime)
+void MainWindow::rgbAnimOk(int r, int g, int b)
 {
-    qDebug() << "ON Time:   " << ontime << endl;
-    qDebug() << "OFF Time:  " << offtime << endl;
-
-    QColor color(r,g,b);
-    clickedLedforAnim->setColor(color);
-
     LedAnim *animled = new LedAnim;
     animled->led = clickedLedforAnim;
     animled->redvalue = r;
     animled->greenvalue = g;
     animled->bluevalue = b;
-    animled->ontimevalue = ontime;
-    animled->offtimevalue = offtime;
-    animled->timeron = new QTimer();
-    animled->timeroff = new QTimer();
+    animled->activeSequence = currentLedSequence;
     animLedList.append(animled);
 }
 
 void MainWindow::animationMake()
 {
     qDebug() << "Animation making started" << endl;
+    currentLedSequence = 0;
 
+    animationTime = new QTimer;
+    connect(animationTime, SIGNAL(timeout()), this, SLOT(makeAnimationLedOn()));
+    animationTime->start(1000);
+
+    qDebug() << "Anim Led list : " << endl;
+    for (LedAnim *a : animLedList) {
+        qDebug() << a->activeSequence << endl;
+    }
+
+
+/*
     for (int i=0; i<animLedList.size(); i++) {
 
         ///LED ON
@@ -148,22 +156,49 @@ void MainWindow::animationMake()
         ///START ANIMATION
         animLedList[i]->timeroff->start();
     }
+    */
 }
 
-void MainWindow::makeAnimationLedOn(int a)
+void MainWindow::makeAnimationLedOn()
 {
+    qDebug() << "Current led sequence under time limit " << currentLedSequence << endl;
+    for (LedAnim *a : animLedList) {
+        QColor color(250,250,250);
+        a->led->setColor(color);
+    }
+    for (LedAnim *a : animLedList) {
+        if (a->activeSequence == currentLedSequence) {
+            QColor color(a->redvalue, a->greenvalue, a->bluevalue);
+            a->led->setColor(color);
+        }
+    }
+
+    if (currentLedSequence < timeLimit) {
+        currentLedSequence++;
+
+    } else {
+        currentLedSequence = 0;
+    }
+    /*
     QColor color(250,250,250);
     animLedList[a]->led->setColor(color);
     animLedList[a]->timeron->stop();
-    animLedList[a]->timeroff->start();
+    animLedList[a]->timeroff->start();*/
 }
 
 void MainWindow::makeAnimationLedOff(int a)
 {
+    /*
     QColor color(animLedList[a]->redvalue, animLedList[a]->greenvalue, animLedList[a]->bluevalue);
     animLedList[a]->led->setColor(color);
     animLedList[a]->timeroff->stop();
-    animLedList[a]->timeron->start();
+    animLedList[a]->timeron->start();*/
+}
+
+void MainWindow::createTimeLineMenu()
+{
+    timeSliderMenu = new AnimationTimeSliderSetting();
+    timeSliderMenu->show();
 }
 
 void MainWindow::populateScene(int lednumber) {

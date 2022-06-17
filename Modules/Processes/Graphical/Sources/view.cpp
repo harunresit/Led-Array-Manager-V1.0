@@ -206,6 +206,7 @@ View::View(const QString &name, QWidget *parent)
     connect(dragModeButton, SIGNAL(toggled(bool)), this, SLOT(togglePointerMode()));
     ///Added
     connect(animationaddModeButton, SIGNAL(toggled(bool)), this, SLOT(togglePointerMode()));
+    connect(animationaddModeButton, SIGNAL(clicked()), this, SLOT(animSetMode()));
     connect(startAnimationButton, SIGNAL(clicked()), this, SLOT(animationStart()));
     ///
     connect(antialiasButton, SIGNAL(toggled(bool)), this, SLOT(toggleAntialiasing()));
@@ -333,4 +334,9 @@ void View::rotateRight()
 void View::animationStart()
 {
     emit sendAnimSignal();
+}
+
+void View::animSetMode()
+{
+    emit triggerTimeLineMenu();
 }

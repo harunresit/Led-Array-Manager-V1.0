@@ -49,6 +49,7 @@ public:
 
 signals:
     void sendAnimSignal();
+    void triggerTimeLineMenu();
 
 public slots:
     void zoomIn(int level = 1);
@@ -65,6 +66,7 @@ private slots:
     void rotateLeft();
     void rotateRight();
     void animationStart();
+    void animSetMode();
 
 private:
     GraphicsView *graphicsView;
@@ -83,6 +85,7 @@ private:
     QToolButton *resetButton;
     QSlider *zoomSlider;
     QSlider *rotateSlider;
+
 };
 
 #endif // VIEW_H

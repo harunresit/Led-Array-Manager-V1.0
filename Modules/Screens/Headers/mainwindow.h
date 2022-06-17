@@ -19,6 +19,7 @@ QVector<int> ledlist
 #include <QTimer>
 #include "Modules/Processes/Graphical/Headers/view.h"
 #include "Modules/Processes/Graphical/Headers/led.h"
+#include "Modules/Screens/Headers/animationtimeslidersetting.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -51,11 +52,7 @@ public:
         int redvalue;
         int greenvalue;
         int bluevalue;
-        int ontimevalue;
-        int offtimevalue;
-        QTimer *timeron;
-        QTimer *timeroff;
-
+        int activeSequence;
     };
 
     View *view;
@@ -102,19 +99,30 @@ private:
     Led *clickedLedforAnim;
     QVector<LedAnim*> animLedList;
 
+    //Time Line
+    AnimationTimeSliderSetting *timeSliderMenu;
+
+    QTimer *animationTime;
+
     int ledCount = 0;
+
+    int currentLedSequence;
+
+    int timeLimit;
 
 
 private slots:
     void clickedLed(Led*);
 
-    void rgbAnimOk(int,int,int,int,int);
+    void rgbAnimOk(int,int,int);
 
     void animationMake();
 
-    void makeAnimationLedOn(int);
+    void makeAnimationLedOn();
 
     void makeAnimationLedOff(int);
+
+    void createTimeLineMenu();
 
 
 };
