@@ -49,6 +49,7 @@ public:
 
 signals:
     void sendAnimSignal();
+    void stopAnimSignal();
     void triggerTimeLineMenu();
 
 public slots:
@@ -66,6 +67,7 @@ private slots:
     void rotateLeft();
     void rotateRight();
     void animationStart();
+    void animationStop();
     void animSetMode();
 
 private:
@@ -76,6 +78,7 @@ private:
     QToolButton *dragModeButton;
     QToolButton *animationaddModeButton;
     QToolButton *startAnimationButton;
+    QToolButton *stopAnimaitonButton;
     ///Added
     //QToolButton *ledAddButton;
     ///

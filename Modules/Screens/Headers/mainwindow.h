@@ -120,10 +120,9 @@ private slots:
 
     void makeAnimationLedOn();
 
-    void makeAnimationLedOff(int);
-
     void createTimeLineMenu();
 
+    void animationStop();
 
 };
 #endif // MAINWINDOW_H

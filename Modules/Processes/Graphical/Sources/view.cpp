@@ -149,6 +149,10 @@ View::View(const QString &name, QWidget *parent)
     startAnimationButton = new QToolButton;
     startAnimationButton->setText(tr("Start"));
     startAnimationButton->setCheckable(false);
+    ///Added
+    stopAnimaitonButton = new QToolButton;
+    stopAnimaitonButton->setText(tr("Stop"));
+    stopAnimaitonButton->setCheckable(false);
 
     antialiasButton = new QToolButton;
     antialiasButton->setText(tr("Antialiasing"));
@@ -172,6 +176,7 @@ View::View(const QString &name, QWidget *parent)
     ///Added
     pointerModeGroup->addButton(animationaddModeButton);
     pointerModeGroup->addButton(startAnimationButton);
+    pointerModeGroup->addButton(stopAnimaitonButton);
 
     labelLayout->addWidget(label);
     labelLayout->addStretch();
@@ -181,6 +186,7 @@ View::View(const QString &name, QWidget *parent)
     ///Added
     labelLayout->addWidget(animationaddModeButton);
     labelLayout->addWidget(startAnimationButton);
+    labelLayout->addWidget(stopAnimaitonButton);
     ///
     labelLayout->addStretch();
     labelLayout->addWidget(antialiasButton);
@@ -208,6 +214,7 @@ View::View(const QString &name, QWidget *parent)
     connect(animationaddModeButton, SIGNAL(toggled(bool)), this, SLOT(togglePointerMode()));
     connect(animationaddModeButton, SIGNAL(clicked()), this, SLOT(animSetMode()));
     connect(startAnimationButton, SIGNAL(clicked()), this, SLOT(animationStart()));
+    connect(stopAnimaitonButton, SIGNAL(clicked()), this, SLOT(animationStop()));
     ///
     connect(antialiasButton, SIGNAL(toggled(bool)), this, SLOT(toggleAntialiasing()));
     connect(openGlButton, SIGNAL(toggled(bool)), this, SLOT(toggleOpenGL()));
@@ -216,6 +223,8 @@ View::View(const QString &name, QWidget *parent)
     connect(zoomInIcon, SIGNAL(clicked()), this, SLOT(zoomIn()));
     connect(zoomOutIcon, SIGNAL(clicked()), this, SLOT(zoomOut()));
     connect(printButton, SIGNAL(clicked()), this, SLOT(print()));
+
+    stopAnimaitonButton->setEnabled(false);
 
     setupMatrix();
 }
@@ -333,7 +342,22 @@ void View::rotateRight()
 
 void View::animationStart()
 {
+    selectModeButton->setEnabled(false);
+    dragModeButton->setEnabled(false);
+    animationaddModeButton->setEnabled(false);
+    startAnimationButton->setEnabled(false);
+    stopAnimaitonButton->setEnabled(true);
     emit sendAnimSignal();
+}
+
+void View::animationStop()
+{
+    selectModeButton->setEnabled(true);
+    dragModeButton->setEnabled(true);
+    animationaddModeButton->setEnabled(true);
+    startAnimationButton->setEnabled(true);
+    stopAnimaitonButton->setEnabled(false);
+    emit stopAnimSignal();
 }
 
 void View::animSetMode()

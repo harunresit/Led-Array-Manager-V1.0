@@ -47,7 +47,7 @@ void MainWindow::setParameters(QListWidgetItem ctrTypeName, int lghtNumber, QStr
 
     connect(view, SIGNAL(sendAnimSignal()), this, SLOT(animationMake()));
     connect(view, SIGNAL(triggerTimeLineMenu()), this, SLOT(createTimeLineMenu()));
-
+    connect(view, SIGNAL(stopAnimSignal()), this, SLOT(animationStop()));
     ///// DENEME
     //scene->addLine(40,20,110,20, QPen(Qt::red, 3));
     /////
@@ -186,19 +186,19 @@ void MainWindow::makeAnimationLedOn()
     animLedList[a]->timeroff->start();*/
 }
 
-void MainWindow::makeAnimationLedOff(int a)
-{
-    /*
-    QColor color(animLedList[a]->redvalue, animLedList[a]->greenvalue, animLedList[a]->bluevalue);
-    animLedList[a]->led->setColor(color);
-    animLedList[a]->timeroff->stop();
-    animLedList[a]->timeron->start();*/
-}
-
 void MainWindow::createTimeLineMenu()
 {
     timeSliderMenu = new AnimationTimeSliderSetting();
     timeSliderMenu->show();
+}
+
+void MainWindow::animationStop()
+{
+    delete animationTime;
+    for (LedAnim *a : animLedList) {
+        QColor color(250,250,250);
+        a->led->setColor(color);
+    }
 }
 
 void MainWindow::populateScene(int lednumber) {
