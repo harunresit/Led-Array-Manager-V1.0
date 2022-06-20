@@ -9,6 +9,7 @@ AnimationTimeSliderSetting::AnimationTimeSliderSetting(QWidget *parent) :
     ui->setupUi(this);
     this->setFixedSize(this->width(), this->height());
     ui->lineEdit->setValidator(new QIntValidator(ui->lineEdit));
+    ui->lineEdit_2->setValidator(new QIntValidator(ui->lineEdit_2));
     sliderPosition = ui->horizontalSlider->sliderPosition();
 }
 
@@ -25,6 +26,11 @@ int AnimationTimeSliderSetting::getSliderMax()
 int AnimationTimeSliderSetting::getSliderPos()
 {
     return sliderPosition;
+}
+
+int AnimationTimeSliderSetting::getSliderInterval()
+{
+    return sliderInterval;
 }
 
 void AnimationTimeSliderSetting::setSliderPos(int arg)
@@ -54,4 +60,9 @@ void AnimationTimeSliderSetting::on_pushButton_clicked()
         sliderPosition -= 1;
         ui->horizontalSlider->setSliderPosition(sliderPosition);
     }
+}
+
+void AnimationTimeSliderSetting::on_lineEdit_2_textEdited(const QString &arg1)
+{
+    sliderInterval = arg1.toInt();
 }

@@ -96,6 +96,7 @@ void MainWindow::clickedLed(Led *led)
             currentLedSequence = timeSliderMenu->getSliderPos();
             qDebug() << "Active sequence" << currentLedSequence << endl;
             timeLimit = timeSliderMenu->getSliderMax();
+            timeInterval = timeSliderMenu->getSliderInterval();
             rgbScreen->show();
         } else {
             qDebug() << "Led not clicked" << endl;
@@ -123,7 +124,7 @@ void MainWindow::animationMake()
 
     animationTime = new QTimer;
     connect(animationTime, SIGNAL(timeout()), this, SLOT(makeAnimationLedOn()));
-    animationTime->start(1000);
+    animationTime->start(timeInterval);
 
     qDebug() << "Anim Led list : " << endl;
     for (LedAnim *a : animLedList) {

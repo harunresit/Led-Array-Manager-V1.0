@@ -110,6 +110,8 @@ private:
 
     int timeLimit;
 
+    int timeInterval;
+
 
 private slots:
     void clickedLed(Led*);
