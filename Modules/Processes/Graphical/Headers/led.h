@@ -43,6 +43,7 @@ private:
     int previousitem_x = 0;
     int previousitem_y = 0;
     int number = 0;
+    bool moved = false;
 
 };
 

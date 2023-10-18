@@ -189,7 +189,7 @@ void MainWindow::makeAnimationLedOn()
 
 void MainWindow::createTimeLineMenu()
 {
-    timeSliderMenu = new AnimationTimeSliderSetting();
+    timeSliderMenu = new AnimationTimeSliderSetting(led_counts);
     timeSliderMenu->show();
 }
 
@@ -206,7 +206,7 @@ void MainWindow::populateScene(int lednumber) {
     scene = new QGraphicsScene(this);
 
     //QImage image(scene->width(), scene->height(), QImage::Format_ARGB32);
-
+    led_counts = sqrt(lednumber);
     int x_edge = sqrt(lednumber);
     int y_edge = sqrt(lednumber);
     int imaginel_lednumber = x_edge * y_edge;

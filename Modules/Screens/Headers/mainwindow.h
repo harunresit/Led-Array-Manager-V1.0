@@ -65,6 +65,9 @@ private:
     QSplitter *h1Splitter;
     QSplitter *h2Splitter;
 
+    //Led counts
+    int led_counts;
+
     //Controller type that will be selected from QListWidget will be stored here
     QListWidgetItem main_controllertypeitem;
 
